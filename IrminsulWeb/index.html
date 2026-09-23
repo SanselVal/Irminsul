@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Irminsul - Registro de Personajes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- PANTALLA DE INICIO DE SESIÓN -->
+  <div id="pantalla-login" class="login-container">
+    <div class="login-box">
+      <h2>🌳 El Irminsul</h2>
+      <p class="subtitulo">Acceso restringido a la base de datos</p>
+
+      <div class="tabs-login">
+        <button id="tab-login-btn" class="active" onclick="mostrarTab('login')">Ingresar</button>
+        <button id="tab-registro-btn" onclick="mostrarTab('registro')">Registro</button>
+      </div>
+
+      <!-- Formulario Login -->
+      <form id="form-login" onsubmit="iniciarSesion(event)">
+        <div class="input-group">
+          <label for="login-usuario">Usuario</label>
+          <input type="text" id="login-usuario" required placeholder="Tu usuario autorizado">
+        </div>
+        <div class="input-group">
+          <label for="login-password">Contraseña</label>
+          <input type="password" id="login-password" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn-primary">Entrar a la Base</button>
+      </form>
+
+      <!-- Panel informativo para Registro Público Bloqueado -->
+      <div id="form-registro" class="hidden">
+        <div class="alerta-privado">
+          🔒 <strong>Acceso Privado</strong>
+          <p>El registro público está desactivado. Solo administradores autorizados pueden otorgar nuevas credenciales de acceso.</p>
+        </div>
+      </div>
+
+      <p id="mensaje-login-error" class="error-msg"></p>
+    </div>
+  </div>
+
+  <!-- CONTENIDO PRIVADO (Oculto hasta iniciar sesión) -->
+  <div id="contenido-privado" class="hidden">
+    <header class="header-privado">
+      <div class="header-info">
+        <h1>🌳 El Irminsul - Base de Datos</h1>
+        <span id="badge-usuario" class="badge-user"></span>
+      </div>
+      <div class="header-acciones">
+        <button id="btn-admin-panel" class="btn-admin hidden" onclick="abrirModalAdmin()">⚙️ Panel Control Admin</button>
+        <button onclick="cerrarSesion()" class="btn-logout">Cerrar Sesión</button>
+      </div>
+    </header>
+
+    <main class="contenedor-principal">
+      <div id="contenedor-personajes" class="grid-personajes">
+        <!-- JS insertará las tarjetas de personajes aquí -->
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL PANEL DE ADMINISTRACIÓN -->
+  <div id="modal-admin" class="modal hidden">
+    <div class="modal-contenido">
+      <span class="cerrar-modal" onclick="cerrarModalAdmin()">&times;</span>
+      <h2>⚙️ Administración de Usuarios</h2>
+      <p>Gestión interna de credenciales autorizadas</p>
+
+      <hr class="separador">
+
+      <h3>Añadir Usuario Autorizado</h3>
+      <form id="form-crear-usuario" onsubmit="crearNuevoUsuario(event)">
+        <div class="input-group">
+          <label for="nuevo-user">Nuevo Usuario</label>
+          <input type="text" id="nuevo-user" placeholder="Ej: viajero2" required>
+        </div>
+        <div class="input-group">
+          <label for="nuevo-pass">Contraseña</label>
+          <input type="password" id="nuevo-pass" placeholder="••••••••" required>
+        </div>
+        <div class="input-group">
+          <label for="nuevo-rol">Rol asignado</label>
+          <select id="nuevo-rol">
+            <option value="user">Usuario Lector</option>
+            <option value="admin">Administrador</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary">Autorizar Usuario</button>
+      </form>
+
+      <hr class="separador">
+
+      <h3>🔒 Reemplazar Administrador Maestro</h3>
+      <p class="texto-sm">Configura tus credenciales definitivas y elimina las cuentas por defecto.</p>
+      <form id="form-master-admin" onsubmit="establecerAdminMaestro(event)">
+        <div class="input-group">
+          <label for="master-user">Nuevo Nombre de Admin Maestro</label>
+          <input type="text" id="master-user" placeholder="TuUsuarioAdmin" required>
+        </div>
+        <div class="input-group">
+          <label for="master-pass">Nueva Contraseña Maestra</label>
+          <input type="password" id="master-pass" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-danger">🔒 Purgar y Crear Maestro</button>
+      </form>
+
+      <hr class="separador">
+
+      <h3>Usuarios Registrados</h3>
+      <ul id="lista-usuarios-admin" class="lista-usuarios"></ul>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
