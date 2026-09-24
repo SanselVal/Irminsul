@@ -22,10 +22,7 @@ const loginLimiter = rateLimit({
   message: { error: 'Demasiados intentos fallidos. Tu IP ha sido bloqueada temporalmente por 15 minutos.' }
 });
 
-// 🛡️ BASE DE DATOS DE USUARIOS (Hashes Bcrypt Válidos)
-// Sansel-Val -> !Pochita.2024-v
-// Aether      -> A3t#h9$kL2xM
-// Lumine      -> L8m!n3#pQ7vW
+
 const usuariosBD = [
   {
     usuario: 'Sansel-Val',
