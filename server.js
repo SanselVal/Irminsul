@@ -9,7 +9,8 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 10000;
 const JWT_SECRET = process.env.JWT_SECRET || 'ClaveSecretaSuperProtegidaIrminsul2026';
-
+// Servir la interfaz web (HTML, CSS, JS) desde el servidor
+app.use(express.static(__dirname));
 // Permite peticiones de cualquier origen (GitHub Pages)
 app.use(cors({ origin: '*' }));
 app.use(express.json());
